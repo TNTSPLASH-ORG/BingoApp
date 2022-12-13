@@ -1,14 +1,11 @@
 import React from 'react'
 import Space from './Space'
+import { v4 as uuidv4 } from 'uuid';
 
 export default function BingoCol( { col } ) {
   return (
     <div>
-      <Space num = "1" />
-      <Space num = "2" />
-      <Space num = "3" />
-      <Space num = "4" />
-      <Space num = "5" />
+      <Space key={uuidv4()} numbers={[1,2,3,4,5]} />
     </div>
   )
 }
