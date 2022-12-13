@@ -1,53 +1,19 @@
+import React, { useState } from 'react';
 import './App.css';
+import BingoCard from './BingoCard';
 
 function App() {
+  const [bingocard, setBingoCard] = useState([
+      {
+        "header": "B",
+        "numbers": [1, 2, 3, 4, 5]
+      }
+  ])
   return (
-    <div class="table_div">
-      <table>
-        <tr>
-          <th>B</th>
-          <th>I</th>
-          <th>N</th>
-          <th>G</th>
-          <th>O</th>
-        </tr>
-        <tr>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-        </tr>
-        <tr>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-        </tr>
-        <tr>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-        </tr>
-        <tr>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-        </tr>
-        <tr>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-          <td>​</td>
-        </tr>
-      </table>
-    </div>
+    <>
+    <BingoCard bingocard={bingocard}/>
+    <button>New Bingo Card</button>
+    </>
   );
 }
 
