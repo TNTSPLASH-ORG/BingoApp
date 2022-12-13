@@ -1,9 +1,13 @@
 import React from 'react'
 
-export default function ( { num } ) {
+export default function Space( { numbers } ) {
   return (
-    <div>
-      <div>{num}</div>
-    </div>
+    numbers.map(num => {
+      return (
+        <>
+        <div>{num}</div>
+        </>
+      )
+    })
   )
 }
