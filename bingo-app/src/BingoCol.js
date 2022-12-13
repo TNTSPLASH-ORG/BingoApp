@@ -1,13 +1,14 @@
 import React from 'react'
+import Space from './Space'
 
 export default function BingoCol( { col } ) {
   return (
     <div>
-      <div>1</div>
-      <div>2</div>
-      <div>3</div>
-      <div>4</div>
-      <div>5</div>
+      <Space num = "1" />
+      <Space num = "2" />
+      <Space num = "3" />
+      <Space num = "4" />
+      <Space num = "5" />
     </div>
   )
 }
