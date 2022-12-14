@@ -1,4 +1,3 @@
 # BingoApp
-A bingo game made with ReactJS
 
-#
+React based bingo game
