@@ -22,6 +22,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: install
+        run: npm install react-scripts
       - name: build
         run: npm run build
       - name: docker
