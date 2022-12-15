@@ -21,6 +21,7 @@ function getRandomIntsInRange(min, max, count) {
 
 
 function App() {
+<<<<<<< HEAD
   const [bingocard, setBingoCard] = useState([])
 
   let n_numbers = getRandomIntsInRange(31, 45, 4)
@@ -29,6 +30,10 @@ function App() {
   function handleNewBingo(event) {
     setBingoCard([
       { 
+=======
+  const [bingocard] = useState([
+      {
+>>>>>>> 05c68c629fb600097204b77c539b69a7d6b9d327
         "header": "B",
         "numbers": getRandomIntsInRange(1, 15, 5)
       },

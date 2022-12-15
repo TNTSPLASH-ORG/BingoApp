@@ -4,8 +4,8 @@ on:
   push:
     branches:
     - main
-    pull_request:
-    workflow_dispatch:
+  pull_request:
+  workflow_dispatch:
 
 env:
   ECR_REPO: 982250989342.dkr.ecr.us-west-1.amazonaws.com
@@ -16,16 +16,27 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     name: Build
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: 16
+      - name: install
+        run: npm install react-scripts
       - name: build
         run: npm run build
       - name: docker
         run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1-node16
+        with:
+          aws-region: us-west-1
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          role-session-name: GithubAction
       - name: login
         run: aws ecr get-login-password | docker login --username AWS --password-stdin ${ECR_REPO}
       - name: push
