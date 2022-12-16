@@ -1,10 +1,18 @@
 import React from 'react'
 import Space from './Space'
 
-export default function BingoCol( { nums } ) {
+export default function BingoCol(props) {
   return (
-    <div>
-      <Space numbers={nums} />
-    </div>
-  )
+    props.nums.map((num) => {
+      return (
+        <Space 
+          key={num.id}
+          id={num.id}
+          num={num.digit}
+          backgroundColor={num.backgroundColor}
+          toggleBackground={props.toggleBackground}
+        />
+      )
+    })
+  );
 }

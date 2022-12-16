@@ -1,18 +1,13 @@
-import React from 'react'
-import { v4 as uuidv4 } from "uuid";
+import React from "react";
 
-function handleClick(e) {
-  e.target.style.backgroundColor = 88888
-}
-
-export default function Space( { numbers } ) {
+export default function Space(props) {
   return (
-    numbers.map(num => {
-      return (
-        <div key={uuidv4()}>
-          <div key={num.id} onClick={handleClick}>{num.digit}</div>
-        </div>
-      )
-    })
-  )
+    <div 
+      key={props.id} 
+      onClick={() => props.toggleBackground(props.id)}
+      style={{backgroundColor: props.backgroundColor}}
+      >
+      {props.num}
+    </div>
+  );
 }
