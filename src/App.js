@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import BingoCard from './BingoCard';
 
@@ -18,9 +18,20 @@ function getRandomIntsInRange(min, max, count) {
   return randomInts;
 }
 
+const LOCAL_STORAGE_KEY = 'bingoapp.BingoCard'
 
 function App() {
-  const [bingocard, setBingoCard] = useState([])
+  const [bingocard, setBingoCard] = useState(() => {
+    const storedbingo = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY))
+    if (storedbingo) {
+      return (storedbingo)
+    }
+  })
+
+  
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bingocard))
+  }, [bingocard])
 
   let n_numbers = getRandomIntsInRange(31, 45, 4)
   n_numbers.splice(2, 0, "Free")
@@ -53,7 +64,7 @@ function App() {
   return (
     <div>
       <div className="clear"></div>
-      <BingoCard bingocard={bingocard} />
+      <BingoCard className="card" bingocard={bingocard} />
       <button onClick={handleNewBingo}>New Bingo Card</button>
     </div>
   );
