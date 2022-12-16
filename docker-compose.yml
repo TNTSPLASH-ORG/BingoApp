@@ -3,9 +3,6 @@ version: '3.8'
 services:
   bingo-app:
     container_name: bingo-app
-    image: local-test
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    image: 982250989342.dkr.ecr.us-west-1.amazonaws.com/bingoapp:main-latest
     ports:
-      - "3100:8080"
+      - "8080:8080"
