@@ -127,7 +127,6 @@ function App() {
   }
 
   function handleColorPick(color, event) {
-    console.log('changed', color, event)
     setColor(color.hex)
     const updatedBingoCard = bingocard.map((card) => {
 
