@@ -19,9 +19,6 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bingocard));
   }, [bingocard]);
 
-  let n_numbers = getRandomIntsInRange(31, 45, 4);
-  n_numbers.splice(2, 0, { id: uuidv4(), digit: "Free", backgroundColor: "#FFFFFF" });
-
   function getRandomIntsInRange(min, max, count) {
     const randomInts = [];
 
@@ -31,27 +28,43 @@ function App() {
       do {
         randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
       } while (randomInts.includes(randomInt));
-
-      randomInts.push({ 
-        id: uuidv4(), 
-        digit: randomInt,
-        backgroundColor: "#FFFFFF"
-      });
+      randomInts.push(randomInt)
     }
     return randomInts;
   }
 
-  function handleNewBingo(event) {
+  function buildRandomIntsObject(min, max, count) {
+    const randomInts = getRandomIntsInRange(min, max, count)
+    const randomIntsObjs = [];
+
+    randomInts.map((digit) => {
+      return randomIntsObjs.push({
+        id: uuidv4(),
+        digit: digit,
+        backgroundColor: "#FFFFFF",
+      });
+    });
+
+    return randomIntsObjs;
+  }
+
+  function handleNewBingo() {
+    let n_numbers = buildRandomIntsObject(31, 45, 4);
+    n_numbers.splice(2, 0, {
+      id: uuidv4(),
+      digit: "Free",
+      backgroundColor: "#FFFFFF",
+    });
     setBingoCard([
       {
         id: uuidv4(),
         header: "B",
-        numbers: getRandomIntsInRange(1, 15, 5),
+        numbers: buildRandomIntsObject(1, 15, 5),
       },
       {
         id: uuidv4(),
         header: "I",
-        numbers: getRandomIntsInRange(16, 30, 5),
+        numbers: buildRandomIntsObject(16, 30, 5),
       },
       {
         id: uuidv4(),
@@ -61,12 +74,12 @@ function App() {
       {
         id: uuidv4(),
         header: "G",
-        numbers: getRandomIntsInRange(46, 60, 5),
+        numbers: buildRandomIntsObject(46, 60, 5),
       },
       {
         id: uuidv4(),
         header: "O",
-        numbers: getRandomIntsInRange(61, 75, 5),
+        numbers: buildRandomIntsObject(61, 75, 5),
       },
     ]);
   }
@@ -98,16 +111,19 @@ function App() {
     setBingoCard(updatedBingoCard)
   }
   return (
-    <div>
-      <div className="clear"></div>
-      <BingoCard
-        className="card"
-        key={bingocard.id}
-        bingocard={bingocard}
-        toggleBackground={toggleBackground}
-      />
-      <button onClick={handleNewBingo}>New Bingo Card</button>
-    </div>
+    <>
+      <div className="wrapper">
+        <BingoCard
+          className="item"
+          key={bingocard.id}
+          bingocard={bingocard}
+          toggleBackground={toggleBackground}
+        />
+      </div>
+      <div className="button">
+        <button className="btn" onClick={handleNewBingo}>New Bingo Card</button>
+      </div>
+    </>
   );
 }
 

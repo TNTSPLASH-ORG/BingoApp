@@ -1,13 +1,76 @@
-.clear {
-    width: 100%;
-    clear: both;
+
+.wrapper { /* can also be whatever container */
+  display: -webkit-flex;
+  display: flex;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  padding-top: 3em;
 }
 
-.card {
-    float: left;
-    width: 35px;
-    height: 100vh;
-    background-color: #ffffff;
-
+.flex-grid {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  font-family: "Roboto", sans-serif;
+  border-collapse: collapse;
 }
 
+.flex-column,
+.flex-header {
+  position: relative;
+  flex-direction: column;
+  display: flex;
+  float: left;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.flex-header .flex-cell {
+  font-family: "Roboto Slab", serif;
+  /* text-shadow: -1px -1px 0 #898989, 1px -1px 0 #898989, -1px 1px 0 #898989,
+    1px 1px 0 #898989; */
+}
+.flex-cell {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 3em;
+  height: 3em;
+  padding: .5em;
+  border: 1px solid #000000;
+  border-collapse: collapse;
+  background: white;
+  cursor: pointer;
+  user-select: none;
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.5ch;
+  
+}
+
+.btn {
+    transition-duration: 0.4s;
+    border: none;
+    background-color: #90ee90;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 1ch;
+    padding: 1ch;
+}
+
+.btn:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
