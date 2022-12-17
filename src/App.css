@@ -8,6 +8,25 @@
     width: 35px;
     height: 100vh;
     background-color: #ffffff;
-
 }
 
+
+.button {
+    transition-duration: 0.4s;
+    border: none;
+    background-color: #90ee90;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+  
+.button:hover {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.space {
+    color: black;
+}

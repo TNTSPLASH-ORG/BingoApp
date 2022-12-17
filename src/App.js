@@ -80,7 +80,7 @@ function App() {
           const newNum = { ...num }
 
           if (num.backgroundColor === "#FFFFFF") {
-            newNum.backgroundColor = "#E6A5A5"
+            newNum.backgroundColor = "#90ee90"
           } else {
             newNum.backgroundColor = "#FFFFFF"
           }
@@ -106,7 +106,7 @@ function App() {
         bingocard={bingocard}
         toggleBackground={toggleBackground}
       />
-      <button onClick={handleNewBingo}>New Bingo Card</button>
+      <button className="button" onClick={handleNewBingo}>New Bingo Card</button>
     </div>
   );
 }
