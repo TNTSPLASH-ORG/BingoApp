@@ -7,8 +7,8 @@ export default function BingoCard(props) {
   return (
     props.bingocard.map(col => {
         return (
-          <div key={uuidv4()} className="card">
-            <BingoColHeader key={col.id} header={col.header} />
+          <div key={uuidv4()} className="flex-column">
+            <BingoColHeader className="flex-header" key={col.id} header={col.header} />
             <BingoCol
               key={uuidv4()}
               nums={col.numbers}
