@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import BingoCard from "./BingoCard";
+import ColorPicker from "./ColorPicker"
 import { v4 as uuidv4 } from "uuid";
 
 const LOCAL_STORAGE_KEY = "bingoapp.BingoCard";
+const LOCAL_STORAGE_KEY_COLOR = "bingoapp.BingoCard.Color";
 
 function App() {
   const [bingocard, setBingoCard] = useState(() => {
@@ -15,9 +17,22 @@ function App() {
     }
   });
 
+  const [color, setColor] = useState(() => {
+    const storedcolor = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_COLOR));
+    if (storedcolor) {
+      return storedcolor
+    } else {
+      return "#E6A5A5"
+    }
+  })
+
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bingocard));
   }, [bingocard]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_COLOR, JSON.stringify(color));
+  }, [color]);
 
   function getRandomIntsInRange(min, max, count) {
     const randomInts = [];
@@ -93,7 +108,7 @@ function App() {
           const newNum = { ...num }
 
           if (num.backgroundColor === "#FFFFFF") {
-            newNum.backgroundColor = "#E6A5A5"
+            newNum.backgroundColor = color
           } else {
             newNum.backgroundColor = "#FFFFFF"
           }
@@ -110,6 +125,30 @@ function App() {
     });
     setBingoCard(updatedBingoCard)
   }
+
+  function handleColorPick(color, event) {
+    console.log('changed', color, event)
+    setColor(color.hex)
+    const updatedBingoCard = bingocard.map((card) => {
+
+      const updatedNumbers = card.numbers.map((num) => {
+          
+        const newNum = { ...num }
+
+        if (num.backgroundColor !== "#FFFFFF") {
+          newNum.backgroundColor = color.hex
+        }
+
+        return newNum
+      })
+
+      card.numbers = updatedNumbers
+
+      return card
+    });
+    setBingoCard(updatedBingoCard)
+  }
+
   return (
     <>
       <div className="wrapper">
@@ -121,8 +160,9 @@ function App() {
         />
       </div>
       <div className="button">
-        <button className="btn" onClick={handleNewBingo}>New Bingo Card</button>
+        <button className="btn" style={{backgroundColor: color}} onClick={handleNewBingo}>New Bingo Card</button>
       </div>
+      <ColorPicker handleColorPick={handleColorPick}/>
     </>
   );
 }

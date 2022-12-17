@@ -58,19 +58,18 @@
 }
 
 .btn {
-    transition-duration: 0.4s;
-    border: none;
-    background-color: #90ee90;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 1ch;
-    padding: 1ch;
+  transition-duration: 0.4s;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 1ch;
+  padding: 1ch;
 }
 
 .btn:hover {
-    background-color: #4CAF50; /* Green */
-    color: white;
+  background-color: #4CAF50; /* Green */
+  color: white;
 }
