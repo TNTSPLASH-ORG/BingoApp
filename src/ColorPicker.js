@@ -1,5 +1,4 @@
-import { render } from "@testing-library/react";
-import React, { useState, useCallback } from "react";
+import React, { useState} from "react";
 import { GithubPicker } from "react-color";
 
 function handleClick(renderStatus, setRender) {
