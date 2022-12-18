@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import BingoCard from "./BingoCard";
-import ColorPicker from "./ColorPicker"
+import ColorPicker from "./ColorPicker";
 import { v4 as uuidv4 } from "uuid";
 
 const LOCAL_STORAGE_KEY = "bingoapp.BingoCard";
@@ -18,13 +18,15 @@ function App() {
   });
 
   const [color, setColor] = useState(() => {
-    const storedcolor = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_COLOR));
+    const storedcolor = JSON.parse(
+      localStorage.getItem(LOCAL_STORAGE_KEY_COLOR)
+    );
     if (storedcolor) {
-      return storedcolor
+      return storedcolor;
     } else {
-      return "#E6A5A5"
+      return "#E6A5A5";
     }
-  })
+  });
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bingocard));
@@ -43,13 +45,13 @@ function App() {
       do {
         randomInt = Math.floor(Math.random() * (max - min + 1)) + min;
       } while (randomInts.includes(randomInt));
-      randomInts.push(randomInt)
+      randomInts.push(randomInt);
     }
     return randomInts;
   }
 
   function buildRandomIntsObject(min, max, count) {
-    const randomInts = getRandomIntsInRange(min, max, count)
+    const randomInts = getRandomIntsInRange(min, max, count);
     const randomIntsObjs = [];
 
     randomInts.map((digit) => {
@@ -101,55 +103,52 @@ function App() {
 
   function toggleBackground(id) {
     const updatedBingoCard = bingocard.map((card) => {
-
       const updatedNumbers = card.numbers.map((num) => {
         if (id === num.id) {
-          
-          const newNum = { ...num }
+          const newNum = { ...num };
 
           if (num.backgroundColor === "#FFFFFF") {
-            newNum.backgroundColor = color
+            newNum.backgroundColor = color;
           } else {
-            newNum.backgroundColor = "#FFFFFF"
+            newNum.backgroundColor = "#FFFFFF";
           }
 
-          return newNum
+          return newNum;
         }
 
         return num;
-      })
+      });
 
-      card.numbers = updatedNumbers
+      card.numbers = updatedNumbers;
 
-      return card
+      return card;
     });
-    setBingoCard(updatedBingoCard)
+    setBingoCard(updatedBingoCard);
   }
 
   function handleColorPick(color, event) {
-    setColor(color.hex)
+    setColor(color.hex);
     const updatedBingoCard = bingocard.map((card) => {
-
       const updatedNumbers = card.numbers.map((num) => {
-          
-        const newNum = { ...num }
+        const newNum = { ...num };
 
         if (num.backgroundColor !== "#FFFFFF") {
-          newNum.backgroundColor = color.hex
+          newNum.backgroundColor = color.hex;
         }
 
-        return newNum
-      })
+        return newNum;
+      });
 
-      card.numbers = updatedNumbers
+      card.numbers = updatedNumbers;
 
-      return card
+      return card;
     });
-    setBingoCard(updatedBingoCard)
+    setBingoCard(updatedBingoCard);
   }
 
   return (
     <>
+      <ColorPicker style={{marginleft:'0.35em'}} color={color} handleColorPick={handleColorPick}/>
       <div className="wrapper">
         <BingoCard
           className="item"
@@ -159,9 +158,14 @@ function App() {
         />
       </div>
       <div className="button">
-        <button className="btn" style={{backgroundColor: color}} onClick={handleNewBingo}>New Bingo Card</button>
+        <button
+          className="btn"
+          style={{ backgroundColor: color }}
+          onClick={handleNewBingo}
+        >
+          New Bingo Card
+        </button>
       </div>
-      <ColorPicker handleColorPick={handleColorPick}/>
     </>
   );
 }
