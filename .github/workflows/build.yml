@@ -55,4 +55,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.ACTION_TOKEN }}
       - uses: TNTSPLASH-ORG/update-service@7d922ca5e39fa65be6d5381ffeb5dc2c02261bea
