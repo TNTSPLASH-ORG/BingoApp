@@ -19,41 +19,41 @@ env:
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-    name: Build
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 16
-      - name: install
-        run: npm install react-scripts
-      - name: build
-        run: npm run build
-      - name: docker
-        run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1-node16
-        with:
-          aws-region: us-west-1
-          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
-          role-session-name: GithubAction
-      - name: login
-        run: aws ecr get-login-password | docker login --username AWS --password-stdin ${ECR_REPO}
-      - name: push
-        run: docker push ${DOCKER_URL}:${GITHUB_SHA}
-      - name: tag main-latest
-        if: github.ref == 'refs/heads/main'
-        run: |
-          docker tag ${DOCKER_URL}:${GITHUB_SHA} ${DOCKER_URL}:main-latest
-          docker push ${DOCKER_URL}:main-latest
+  # build:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+  #   name: Build
+  #   steps:
+  #     - uses: actions/checkout@v3
+  #     - uses: actions/setup-node@v3
+  #       with:
+  #         node-version: 16
+  #     - name: install
+  #       run: npm install react-scripts
+  #     - name: build
+  #       run: npm run build
+  #     - name: docker
+  #       run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
+  #     - name: Configure AWS Credentials
+  #       uses: aws-actions/configure-aws-credentials@v1-node16
+  #       with:
+  #         aws-region: us-west-1
+  #         role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+  #         role-session-name: GithubAction
+  #     - name: login
+  #       run: aws ecr get-login-password | docker login --username AWS --password-stdin ${ECR_REPO}
+  #     - name: push
+  #       run: docker push ${DOCKER_URL}:${GITHUB_SHA}
+  #     - name: tag main-latest
+  #       if: github.ref == 'refs/heads/main'
+  #       run: |
+  #         docker tag ${DOCKER_URL}:${GITHUB_SHA} ${DOCKER_URL}:main-latest
+  #         docker push ${DOCKER_URL}:main-latest
   update:
-    needs: build
+    # needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: TNTSPLASH-ORG/update-service@7d922ca5e39fa65be6d5381ffeb5dc2c02261bea
+      - uses: TNTSPLASH-ORG/update-service@87a0528b72381696ce9ae76b4efd9d41f4f59bd0
