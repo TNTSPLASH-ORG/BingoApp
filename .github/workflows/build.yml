@@ -11,7 +11,12 @@ env:
   ECR_REPO: 982250989342.dkr.ecr.us-west-1.amazonaws.com
   DOCKER_URL: 982250989342.dkr.ecr.us-west-1.amazonaws.com/bingoapp
   DOCKER_TAG: ${{ github.sha }}
-  AWS_DEFAULT_REGION: us-west-1
+  TARGET_REPO: "git@github.com:TNTSPLASH-ORG/terraform-bingoapp.git"
+  BRANCH: "main"
+  FILE: "variables.tf"
+  SEARCH_KEY: "bingoapp:"
+  AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 
 jobs:
   build:
@@ -46,3 +51,10 @@ jobs:
         run: |
           docker tag ${DOCKER_URL}:${GITHUB_SHA} ${DOCKER_URL}:main-latest
           docker push ${DOCKER_URL}:main-latest
+  update:
+    if: github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: TNTSPLASH-ORG/update-service@87a0528b72381696ce9ae76b4efd9d41f4f59bd0
