@@ -37,6 +37,7 @@ jobs:
   docker:
     name: Docker Build and Push
     needs: build
+    runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
       - name: docker
