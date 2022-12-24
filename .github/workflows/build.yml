@@ -37,7 +37,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           name: package
-          path: ${{ github.workspace }}
+          path: '${{ github.workspace }}/build', '${{ github.workspace }}/Dockerfile'
   docker:
     name: Docker Build and Push
     needs: build
