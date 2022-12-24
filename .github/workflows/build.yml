@@ -34,39 +34,21 @@ jobs:
         run: npm install react-scripts
       - name: build
         run: npm run build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: build
-          path: ${{ github.workspace }}/build
-      - uses: actions/upload-artifact@v3
-        with:
-          name: dockerfile
-          path: ${{ github.workspace }}/Dockerfile
-  docker:
-    name: Docker Build and Push
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: build
-          path: ${{ github.workspace }}/build
-      - uses: actions/download-artifact@v3
-        with:
-          name: dockerfile
-          path: ${{ github.workspace }}
       - name: docker
+        if: github.ref == 'refs/heads/main'
         run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
       - name: Configure AWS Credentials
+        if: github.ref == 'refs/heads/main'
         uses: aws-actions/configure-aws-credentials@v1-node16
         with:
           aws-region: us-west-1
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           role-session-name: GithubAction
       - name: login
+        if: github.ref == 'refs/heads/main'
         run: aws ecr get-login-password | docker login --username AWS --password-stdin ${ECR_REPO}
       - name: push
+        if: github.ref == 'refs/heads/main'
         run: docker push ${DOCKER_URL}:${GITHUB_SHA}
       - name: tag main-latest
         if: github.ref == 'refs/heads/main'
@@ -76,7 +58,7 @@ jobs:
   update:
     name: Update ECS
     if: github.ref == 'refs/heads/main'
-    needs: docker
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
