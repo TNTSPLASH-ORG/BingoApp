@@ -79,7 +79,6 @@
 }
 
 nav {
-  display: flex;
   height: 4em;
   width: 100%;
   display: flex;
@@ -96,4 +95,13 @@ nav {
 
 .github-picker {
   margin-left: 0.35em;
+}
+
+.icon {
+  text-align: center;
+  justify-content: center;
+  padding: 1em;
+  float: right;
+  margin-top: 2em;
+  margin-right: 1em;
 }
