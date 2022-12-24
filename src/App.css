@@ -1,5 +1,5 @@
-
-.wrapper { /* can also be whatever container */
+.wrapper {
+  /* can also be whatever container */
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
@@ -45,7 +45,7 @@
   text-align: center;
   width: 3em;
   height: 3em;
-  padding: .5em;
+  padding: 0.5em;
   border: 1px solid #000000;
   border-collapse: collapse;
   background: white;
@@ -58,7 +58,6 @@
   justify-content: center;
   align-items: center;
   padding: 1.5ch;
-  
 }
 
 .btn {
@@ -74,15 +73,13 @@
 }
 
 .btn:hover {
-  background-color: #4CAF50; /* Green */
+  background-color: #4caf50; /* Green */
   color: white;
 }
 
 nav {
-  display: flex;
   height: 4em;
   width: 100%;
-  display: flex;
   text-align: left;
   justify-content: left;
 }
@@ -92,6 +89,15 @@ nav {
   justify-content: center;
   padding: 0.85em;
   margin-left: 0em;
+}
+
+.new_card {
+  text-align: center;
+  justify-content: center;
+  padding: 1em;
+  float: right;
+  margin-top: 2em;
+  margin-right: 1em;
 }
 
 .github-picker {

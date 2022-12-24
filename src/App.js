@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import BingoCard from "./BingoCard";
-import ColorPicker from "./ColorPicker";
 import { v4 as uuidv4 } from "uuid";
+import ParentContainer from "./ParentContainer";
 
 const LOCAL_STORAGE_KEY = "bingoapp.BingoCard";
 const LOCAL_STORAGE_KEY_COLOR = "bingoapp.BingoCard.Color";
+const LOCAL_STORAGE_KEY_ADD_CARD = "bingoapp.AddCardButton";
 
 function App() {
   const [bingocard, setBingoCard] = useState(() => {
@@ -27,6 +27,19 @@ function App() {
       return "#E6A5A5";
     }
   });
+
+  const [renderNewCardButton, setRenderNewCardButton] = useState(() => {
+    const addCard = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY_ADD_CARD));
+    if (addCard) {
+      return addCard;
+    } else {
+      return false;
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY_ADD_CARD, JSON.stringify(renderNewCardButton));
+  }, [renderNewCardButton]);
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(bingocard));
@@ -99,6 +112,7 @@ function App() {
         numbers: buildRandomIntsObject(61, 75, 5),
       },
     ]);
+    setRenderNewCardButton(true);
   }
 
   function toggleBackground(id) {
@@ -146,26 +160,22 @@ function App() {
     setBingoCard(updatedBingoCard);
   }
 
+  function handleAddContainer() {
+    console.log("Add Card Clicked")
+  }
+
+  console.log(renderNewCardButton)
   return (
     <>
-      <ColorPicker style={{marginleft:'0.35em'}} color={color} handleColorPick={handleColorPick}/>
-      <div className="wrapper">
-        <BingoCard
-          className="item"
-          key={bingocard.id}
-          bingocard={bingocard}
-          toggleBackground={toggleBackground}
-        />
-      </div>
-      <div className="button">
-        <button
-          className="btn"
-          style={{ backgroundColor: color }}
-          onClick={handleNewBingo}
-        >
-          New Bingo Card
-        </button>
-      </div>
+      <ParentContainer
+        bingocard={bingocard}
+        color={color}
+        handleColorPick={handleColorPick}
+        toggleBackground={toggleBackground}
+        handleNewBingo={handleNewBingo}
+        renderNewCardButton={renderNewCardButton}
+        handleAddContainer={handleAddContainer}
+      />
     </>
   );
 }
