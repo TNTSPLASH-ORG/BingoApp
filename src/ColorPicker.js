@@ -24,6 +24,7 @@ export default function ColorPicker(props) {
           style={{ width: "35px", height: "35px" }}
           onClick={() => handleClick(hasRender, setRender)}
         ></img>
+        <img src={require("./imgs/simonsbingo.png")} alt="Simons Bingo" />
       </nav>
       {hasRender && <GithubPicker onChange={props.handleColorPick} />}
     </>
