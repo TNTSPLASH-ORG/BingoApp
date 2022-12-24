@@ -20,6 +20,7 @@ env:
 
 jobs:
   build:
+    name: Build Project
     runs-on: ubuntu-latest
     permissions:
       id-token: write
@@ -34,6 +35,11 @@ jobs:
         run: npm install react-scripts
       - name: build
         run: npm run build
+  docker:
+    name: Docker Build and Push
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    steps:
       - name: docker
         run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
       - name: Configure AWS Credentials
@@ -52,8 +58,9 @@ jobs:
           docker tag ${DOCKER_URL}:${GITHUB_SHA} ${DOCKER_URL}:main-latest
           docker push ${DOCKER_URL}:main-latest
   update:
+    name: Update ECS
     if: github.ref == 'refs/heads/main'
-    needs: build
+    needs: docker
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

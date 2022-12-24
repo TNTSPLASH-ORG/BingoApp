@@ -70,7 +70,7 @@ function App() {
     n_numbers.splice(2, 0, {
       id: uuidv4(),
       digit: "Free",
-      backgroundColor: "#FFFFFF",
+      backgroundColor: color,
     });
     setBingoCard([
       {
