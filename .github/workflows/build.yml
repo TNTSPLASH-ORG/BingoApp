@@ -34,12 +34,20 @@ jobs:
         run: npm install react-scripts
       - name: build
         run: npm run build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: package
+          path: ${{ github.workspace }}
   docker:
     name: Docker Build and Push
     needs: build
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: package
+          path: ${{ github.workspace }}
       - name: docker
         run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
       - name: Configure AWS Credentials
