@@ -55,7 +55,7 @@ jobs:
       - uses: actions/download-artifact@v3
         with:
           name: dockerfile
-          path: ${{ github.workspace }}/Dockerfile
+          path: ${{ github.workspace }}
       - name: docker
         run: docker build -t ${DOCKER_URL}:${GITHUB_SHA} .
       - name: Configure AWS Credentials
