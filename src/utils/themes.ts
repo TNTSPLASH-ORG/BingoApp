@@ -1,0 +1,42 @@
+export const themes = {
+  dracula: {
+    bg: 'bg-[#282a36]',
+    card: 'bg-[#44475a]',
+    text: 'text-[#f8f8f2]',
+    accent: 'bg-[#bd93f9]',
+    hover: 'hover:bg-[#6272a4]',
+    marked: 'bg-[#ff79c6]',
+  },
+  nord: {
+    bg: 'bg-[#2e3440]',
+    card: 'bg-[#3b4252]',
+    text: 'text-[#eceff4]',
+    accent: 'bg-[#88c0d0]',
+    hover: 'hover:bg-[#4c566a]',
+    marked: 'bg-[#5e81ac]',
+  },
+  dark: {
+    bg: 'bg-gray-900',
+    card: 'bg-gray-800',
+    text: 'text-white',
+    accent: 'bg-blue-600',
+    hover: 'hover:bg-gray-700',
+    marked: 'bg-green-600',
+  },
+  light: {
+    bg: 'bg-gray-100',
+    card: 'bg-white',
+    text: 'text-gray-900',
+    accent: 'bg-blue-500',
+    hover: 'hover:bg-gray-50',
+    marked: 'bg-green-500',
+  },
+  monokai: {
+    bg: 'bg-[#272822]',
+    card: 'bg-[#3e3d32]',
+    text: 'text-[#f8f8f2]',
+    accent: 'bg-[#fd971f]',
+    hover: 'hover:bg-[#49483e]',
+    marked: 'bg-[#a6e22e]',
+  },
+};
