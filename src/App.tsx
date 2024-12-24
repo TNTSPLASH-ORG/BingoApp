@@ -32,7 +32,7 @@ function App() {
 
   useEffect(() => {
     if (seed && cards.length === 0) {
-      const newCard = createNewCard(`Seed: ${seed}`, seed);
+      const newCard = createNewCard(`Card ${cards.length + 1}`, seed);
       setCards([newCard]);
       setActiveCardId(newCard.id);
     }
