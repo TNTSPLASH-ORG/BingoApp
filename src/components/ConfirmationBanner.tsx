@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Theme, GameMode } from '../types';
-import { themes } from '../utils/themes';
+import { themes } from '../utils/themes.ts';
 import { Check, X } from 'lucide-react';
 
 interface ConfirmationBannerProps {

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { Theme } from '../types';
-import { themes } from '../utils/themes';
+import { themes } from '../utils/themes.ts';
 
 interface BingoCellProps {
   number: number;

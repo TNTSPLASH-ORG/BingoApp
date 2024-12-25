@@ -1,6 +1,6 @@
 import React from 'react';
 import { Theme, GameMode } from '../types';
-import { themes } from '../utils/themes';
+import { themes } from '../utils/themes.ts';
 import { RotateCcw, Grid2X2, Plus, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 

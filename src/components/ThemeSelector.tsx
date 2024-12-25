@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Theme } from '../types';
-import { themes } from '../utils/themes';
+import { themes } from '../utils/themes.ts';
 import { Palette } from 'lucide-react';
 
 interface ThemeSelectorProps {

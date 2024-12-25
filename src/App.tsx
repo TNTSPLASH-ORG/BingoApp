@@ -1,19 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { BingoCard as BingoCardType, Theme, GameMode } from './types';
-import { BingoCard } from './components/BingoCard';
-import { CardList } from './components/CardList';
-import { ThemeSelector } from './components/ThemeSelector';
-import { GameControls } from './components/GameControls';
-import { WinBanner } from './components/WinBanner';
-import { ConfirmationBanner } from './components/ConfirmationBanner';
-import { AdminPanel } from './components/AdminPanel';
-import { createNewCard } from './utils/bingoUtils';
-import { themes } from './utils/themes';
-import { Settings } from 'lucide-react';
-import { checkForWin } from './utils/gameLogic';
-import { useGameServer } from './hooks/useGameServer';
-import { syncCardMarks } from './utils/cardSync';
+import { BingoCard } from './components/BingoCard.tsx';
+import { CardList } from './components/CardList.tsx';
+import { ThemeSelector } from './components/ThemeSelector.tsx';
+import { GameControls } from './components/GameControls.tsx';
+import { WinBanner } from './components/WinBanner.tsx';
+import { ConfirmationBanner } from './components/ConfirmationBanner.tsx';
+import { createNewCard } from './utils/bingoUtils.ts';
+import { themes } from './utils/themes.ts';
+import { checkForWin } from './utils/gameLogic.ts';
+import { useGameServer } from './hooks/useGameServer.ts';
+import { syncCardMarks } from './utils/cardSync.ts';
 
 function App() {
   const { seed, error, requestNewSeed } = useGameServer();

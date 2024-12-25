@@ -1,4 +1,4 @@
-import { createRandom } from './random';
+import { createRandom } from './random.ts';
 import { BingoCard } from '../types';
 
 export const generateBingoCard = (seed?: number): number[][] => {

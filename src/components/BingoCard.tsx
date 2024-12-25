@@ -1,7 +1,7 @@
 import React from 'react';
-import { BingoCell } from './BingoCell';
+import { BingoCell } from './BingoCell.tsx';
 import { Theme } from '../types';
-import { themes } from '../utils/themes';
+import { themes } from '../utils/themes.ts';
 
 interface BingoCardProps {
   numbers: number[][];

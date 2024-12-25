@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { BingoCard, Theme } from '../types';
-import { themes } from '../utils/themes';
+import { themes } from '../utils/themes.ts';
 import { Trash2 } from 'lucide-react';
 
 interface CardListProps {
