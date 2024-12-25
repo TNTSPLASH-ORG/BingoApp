@@ -45,7 +45,7 @@ export const ThemeSelector: React.FC<ThemeSelectorProps> = ({
                     onClick={() => handleThemeChange(theme as Theme)}
                     className={`w-full text-left py-1 px-2 rounded focus:outline-none`}
                     style={{
-                      color: '#ffffff', // Dynamic text color from selected theme
+                      color: themes[currentTheme].menuText, // Dynamic text color from selected theme
                       backgroundColor: theme === currentTheme 
                         ? selectedThemeStyles.card // Highlight the selected theme with its card color
                         : 'transparent', 

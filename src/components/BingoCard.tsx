@@ -19,7 +19,7 @@ export const BingoCard: React.FC<BingoCardProps> = ({ numbers, marked, onCellCli
         {['B', 'I', 'N', 'G', 'O'].map((letter) => (
           <div
             key={letter}
-            className={`text-lg sm:text-2xl font-bold text-center ${themeStyles.text} h-6 sm:h-8 flex items-center justify-center`}
+            className={`text-3xl font-bold text-center ${themeStyles.text} h-6 sm:h-8 flex items-center justify-center`}
           >
             {letter}
           </div>

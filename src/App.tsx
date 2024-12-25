@@ -6,6 +6,7 @@ import { CardList } from './components/CardList';
 import { ThemeSelector } from './components/ThemeSelector';
 import { GameControls } from './components/GameControls';
 import { WinBanner } from './components/WinBanner';
+import { ConfirmationBanner } from './components/ConfirmationBanner';
 import { AdminPanel } from './components/AdminPanel';
 import { createNewCard } from './utils/bingoUtils';
 import { themes } from './utils/themes';
@@ -19,6 +20,8 @@ function App() {
   const [theme, setTheme] = useState<Theme>('dracula');
   const [gameMode, setGameMode] = useState<GameMode>('classic');
   const [showWinBanner, setShowWinBanner] = useState(false);
+  const [showConfirmationBanner, setShowConfirmationBanner] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
   const [showAdminPanel, setShowAdminPanel] = useState(false);
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [cards, setCards] = useState<BingoCardType[]>(() => {
@@ -29,10 +32,11 @@ function App() {
   
   const themeStyles = themes[theme];
   const activeCard = cards.find(card => card.id === activeCardId);
-
+  
   useEffect(() => {
     if (seed && cards.length === 0) {
       const newCard = createNewCard(`Card ${cards.length + 1}`, seed);
+      newCard.marked[2][2] = true;
       setCards([newCard]);
       setActiveCardId(newCard.id);
     }
@@ -47,11 +51,13 @@ function App() {
     
     setIsAddingCard(true);
     try {
-      const newSeed = await requestNewSeed();
+      const newSeed = requestNewSeed();
       if (newSeed) {
         const newCard = createNewCard(`Card ${cards.length + 1}`, newSeed);
+        newCard.marked[2][2] = true;
         setCards([...cards, newCard]);
         setActiveCardId(newCard.id);
+        console.log(newCard);
       }
     } finally {
       setIsAddingCard(false);
@@ -77,6 +83,25 @@ function App() {
 
     setCards(newCards);
   };
+
+  const updateCardNames = cards => {
+    const newCards = cards.map((card, index) => ({
+      ...card,
+      name: `Card ${index + 1}`
+    }));
+    
+    return newCards;
+  };
+
+  const resetCards = () => {
+    const newSeed = requestNewSeed();
+    if (newSeed) {
+      const newCard = createNewCard(`Card ${1}`, newSeed);
+      newCard.marked[2][2] = true;
+      setCards([newCard]);
+      setActiveCardId(newCard.id);
+    }
+  }
 
   if (error) {
     return (
@@ -104,10 +129,15 @@ function App() {
           gameMode={gameMode}
           onGameModeChange={setGameMode}
           onReset={() => {
-            if (seed) {
-              const newCard = createNewCard(`Seed: ${seed}`, seed);
-              setCards([newCard]);
-              setActiveCardId(newCard.id);
+            setShowConfirmationBanner(true);
+            if(confirmed) {
+              const newSeed = requestNewSeed();
+              if (newSeed) {
+                const newCard = createNewCard(`Card ${1}`, newSeed);
+                newCard.marked[2][2] = true;
+                setCards([newCard]);
+                setActiveCardId(newCard.id);
+              }
             }
           }}
           onAddCard={handleAddCard}
@@ -121,7 +151,9 @@ function App() {
             onCardSelect={setActiveCardId}
             onCardDelete={(id) => {
               const newCards = cards.filter(card => card.id !== id);
-              setCards(newCards);
+              const updatedCards = updateCardNames(newCards);
+              
+              setCards(updatedCards);
               if (id === activeCardId && newCards.length > 0) {
                 setActiveCardId(newCards[0].id);
               }
@@ -145,6 +177,16 @@ function App() {
       <WinBanner
         show={showWinBanner}
         onClose={() => setShowWinBanner(false)}
+        theme={theme}
+        gameMode={gameMode}
+      />
+      <ConfirmationBanner
+        show={showConfirmationBanner}
+        onConfirm={() => {
+          setShowConfirmationBanner(false);
+          resetCards();
+        }}
+        onCancel={() => setShowConfirmationBanner(false)}
         theme={theme}
         gameMode={gameMode}
       />

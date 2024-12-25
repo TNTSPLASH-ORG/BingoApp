@@ -19,7 +19,7 @@ export const BingoCell: React.FC<BingoCellProps> = ({ number, marked, onClick, t
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
       className={`
-        w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center font-bold text-base sm:text-xl
+        w-12 h-12 sm:w-16 sm:h-16 rounded-lg flex items-center justify-center text-base sm:text-xl
         transition-colors duration-200
         ${marked ? themeStyles.marked : themeStyles.card}
         ${themeStyles.text}
